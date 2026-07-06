@@ -25,22 +25,37 @@ const RECOVERY_ABI_MIN = [
   'function quoteFeeWei(address wallet) view returns (uint256)'
 ]
 
-export async function getRecoveryFromChain(wallet) {
+// Reads full recovery state. Safe when status == Recovered (2) because we only
+// call quoteFeeWei when status == Pending (1).
+export async function getRecoveryState(wallet) {
   const provider = getPublicProvider()
   const c = new Contract(import.meta.env.VITE_RECOVERY_CONTRACT, RECOVERY_ABI_MIN, provider)
   try {
-    const [rec, feeWei] = await Promise.all([
-      c.recoveries(wallet),
-      c.quoteFeeWei(wallet)
-    ])
+    const rec = await c.recoveries(wallet)
+    const status = Number(rec.status) // 0=None, 1=Pending, 2=Recovered
+    let feeWei = 0n
+    if (status === 1) {
+      try { feeWei = await c.quoteFeeWei(wallet) } catch {}
+    }
     return {
-      hasRecovery: Number(rec.status) === 1,
+      status,
       amount: rec.amount,
       feePercent: Number(rec.feePercent),
       feeWei
     }
   } catch {
-    return { hasRecovery: false, amount: 0n, feePercent: 0, feeWei: 0n }
+    return { status: 0, amount: 0n, feePercent: 0, feeWei: 0n }
+  }
+}
+
+// Back-compat wrapper for existing callers that expect the old shape.
+export async function getRecoveryFromChain(wallet) {
+  const s = await getRecoveryState(wallet)
+  return {
+    hasRecovery: s.status === 1,
+    amount: s.amount,
+    feePercent: s.feePercent,
+    feeWei: s.feeWei
   }
 }
 
