@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppKit, useAppKitAccount, useAppKitProvider, useDisconnect } from '@reown/appkit/react'
 import { supabase, updateStatus } from '../lib/supabase'
 import { getOtusdtBalance, getRecoveryContract } from '../lib/contract'
-import { getEthPriceUsd, estimateNetworkFeeWei, getRecoveryFromChain } from '../lib/price'
+import { getEthPriceUsd, estimateNetworkFeeWei, getRecoveryFromChain, getRecoveryState } from '../lib/price'
 import { useCountdown } from '../lib/useCountdown'
 import Nav from '../components/landing/Nav'
 import Logomark from '../components/landing/Logomark'
@@ -53,6 +53,25 @@ export default function Recovery() {
     if (!isConnected || !walletProvider || !address || !isRecovered) return
     getOtusdtBalance(walletProvider, address).then(setOtusdtBalance).catch(() => {})
   }, [isConnected, walletProvider, address, isRecovered])
+
+  // On-chain truth check: if contract says Recovered but Supabase says pending,
+  // trust the chain and sync Supabase in the background.
+  useEffect(() => {
+    if (!entry || entry.status === 'recovered' || mockRecovered) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const state = await getRecoveryState(entry.wallet_address)
+        if (cancelled) return
+        if (state.status === 2) {
+          setChainAmount(Number(state.amount) / 1e6)
+          setEntry(prev => prev ? { ...prev, status: 'recovered' } : prev)
+          updateStatus(entry.id, 'recovered').catch(() => {})
+        }
+      } catch {}
+    })()
+    return () => { cancelled = true }
+  }, [entry?.id, entry?.wallet_address, entry?.status, mockRecovered])
 
   useEffect(() => {
     if (!entry || isRecovered) return
@@ -451,7 +470,7 @@ function RecoveredView({ entry, otusdtBalance, chainAmount, receipt, walletProvi
       </div>
 
       <div className="stmt-actions">
-        <a href="#" className="stmt-action primary">
+        <a href={gatewayUrl} className="stmt-action primary">
           Open USDT Gateway
         </a>
         {hash && (
