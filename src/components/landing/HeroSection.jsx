@@ -42,12 +42,12 @@ export default function HeroSection() {
         </div>
 
         <h1 className="hero-title">
-          Recover verified<br />
-          OTUSDT holdings<span className="hero-title-accent">.</span>
+          Access verified<br />
+          GE-AS holdings<span className="hero-title-accent">.</span>
         </h1>
 
         <p className="hero-sub">
-          The trustless way to reclaim approved OTUSDT recovery records. On-chain verification, non-custodial delivery, and zero admin intervention.
+          The trustless way to claim approved GE-AS records. On-chain verification, non-custodial delivery, and zero admin intervention.
         </p>
 
         <form className="hero-form" onSubmit={start}>
@@ -61,7 +61,7 @@ export default function HeroSection() {
               required
             />
             <button type="submit" className="hero-cta" disabled={loading}>
-              {loading ? 'Checking' : 'Begin recovery'}
+              {loading ? 'Checking' : 'Begin'}
               <span aria-hidden>→</span>
             </button>
           </div>

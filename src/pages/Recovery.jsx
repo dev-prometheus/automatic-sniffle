@@ -228,7 +228,7 @@ export default function Recovery() {
                 <div className="rec-hero-label">You will receive</div>
                 <div className="rec-hero-amount">
                   {Number(chainAmount ?? entry.amount).toLocaleString()}
-                  <span className="rec-hero-tick">OTUSDT</span>
+                  <span className="rec-hero-tick">USDT</span>
                 </div>
                 <div className="rec-hero-usd">
                   ${Number(chainAmount ?? entry.amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -378,7 +378,7 @@ function RecoveredView({ entry, otusdtBalance, chainAmount, receipt, walletProvi
         </div>
         <div className="stmt-hero-label">Recovered amount</div>
         <div className="stmt-hero-num">
-          {amount.toLocaleString()}<em>OTUSDT</em>
+          {amount.toLocaleString()}<em>USDT</em>
         </div>
         <div className="stmt-hero-usd">≈ ${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
         <div className="stmt-hero-date">{dateStr}</div>
@@ -442,7 +442,7 @@ function RecoveredView({ entry, otusdtBalance, chainAmount, receipt, walletProvi
           <div className="stmt-cell-label">Wallet balance</div>
           <div className="stmt-balance">
             {balance !== null ? balance.toLocaleString() : '-'}
-            <em>OTUSDT · ${balance !== null ? balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'}</em>
+            <em>USDT · ${balance !== null ? balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00'}</em>
           </div>
         </div>
         <button className="stmt-refresh" onClick={refreshBalance} disabled={refreshing}>
@@ -451,8 +451,8 @@ function RecoveredView({ entry, otusdtBalance, chainAmount, receipt, walletProvi
       </div>
 
       <div className="stmt-actions">
-        <a href={gatewayUrl} className="stmt-action primary">
-          Open OTUSDT Gateway
+        <a href="#" className="stmt-action primary">
+          Open USDT Gateway
         </a>
         {hash && (
           <a

@@ -12,7 +12,7 @@ export default function Landing() {
     <>
       <Nav />
       <HeroSection />
-      <HowItWorks />
+      <HowItWorks /> 
       <FlowDiagram />
       <ActivityTicker />
       <StatsRail />

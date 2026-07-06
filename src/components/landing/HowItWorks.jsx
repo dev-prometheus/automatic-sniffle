@@ -14,7 +14,7 @@ const STEPS = [
   {
     n: '03',
     title: 'Approve the claim',
-    body: 'Confirm the claim. The protocol fee is deducted in ETH and your OTUSDT is sent to your wallet.'
+    body: 'Confirm the claim. The protocol fee is deducted in ETH and your USDT is sent to your wallet.'
   }
 ]
 

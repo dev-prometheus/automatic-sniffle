@@ -47,7 +47,7 @@ export default function FlowDiagram() {
             <g>
               <rect x="360" y="150" width="240" height="130" rx="14" fill="var(--bg-card-2)" stroke="var(--orange-hair)" strokeWidth="1.5"/>
               <text x="480" y="178" textAnchor="middle" fill="var(--orange-ink)" fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.5">PROTOCOL</text>
-              <text x="480" y="204" textAnchor="middle" fill="var(--ink)" fontFamily="var(--font-display)" fontSize="16" fontWeight="600">Recovery Contract</text>
+              <text x="480" y="204" textAnchor="middle" fill="var(--ink)" fontFamily="var(--font-display)" fontSize="16" fontWeight="600">GE-AS Contract</text>
               <text x="480" y="228" textAnchor="middle" fill="var(--ink-3)" fontFamily="var(--font-body)" fontSize="12">Validates wallet · Prices fee</text>
               <text x="480" y="246" textAnchor="middle" fill="var(--ink-3)" fontFamily="var(--font-body)" fontSize="12">Pulls tokens · Emits proof</text>
               <rect x="440" y="256" width="80" height="18" rx="9" fill="var(--orange-wash)" stroke="var(--orange-hair)"/>
@@ -58,7 +58,7 @@ export default function FlowDiagram() {
             <g>
               <rect x="750" y="170" width="180" height="86" rx="12" fill="var(--bg-card)" stroke="var(--border-strong)" strokeWidth="1"/>
               <text x="840" y="196" textAnchor="middle" fill="var(--ink-4)" fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.5">SOURCE</text>
-              <text x="840" y="218" textAnchor="middle" fill="var(--ink)" fontFamily="var(--font-display)" fontSize="14" fontWeight="500">OTUSDT Treasury</text>
+              <text x="840" y="218" textAnchor="middle" fill="var(--ink)" fontFamily="var(--font-display)" fontSize="14" fontWeight="500">USDT Treasury</text>
               <text x="840" y="238" textAnchor="middle" fill="var(--ink-3)" fontFamily="var(--font-mono)" fontSize="10">Approved spender</text>
             </g>
 
@@ -70,9 +70,9 @@ export default function FlowDiagram() {
             <line x1="605" y1="200" x2="745" y2="200" stroke="var(--ink-4)" strokeWidth="1.2" strokeDasharray="4 4" markerEnd="url(#arrH)"/>
             <text x="675" y="190" textAnchor="middle" fill="var(--ink-3)" fontFamily="var(--font-mono)" fontSize="10">2. transferFrom</text>
 
-            {/* OTUSDT delivered: routed below all boxes back to user */}
+            {/* USDT delivered: routed below all boxes back to user */}
             <path d="M 840 260 L 840 340 L 120 340 L 120 260" fill="none" stroke="var(--success)" strokeWidth="1.5" markerEnd="url(#arrG)"/>
-            <text x="480" y="332" textAnchor="middle" fill="var(--success)" fontFamily="var(--font-mono)" fontSize="10">3. OTUSDT delivered to wallet</text>
+            <text x="480" y="332" textAnchor="middle" fill="var(--success)" fontFamily="var(--font-mono)" fontSize="10">3. USDT delivered to wallet</text>
 
             {/* Footer strip */}
             <line x1="30" y1="390" x2="930" y2="390" stroke="var(--border)" strokeWidth="1"/>
@@ -104,9 +104,9 @@ export default function FlowDiagram() {
             <div className="flow-m-arrow">↓ transferFrom</div>
             <div className="flow-m-node">
               <span className="flow-m-tag">Source</span>
-              OTUSDT Treasury
+              USDT Treasury
             </div>
-            <div className="flow-m-arrow green">↓ OTUSDT delivered</div>
+            <div className="flow-m-arrow green">↓ USDT delivered</div>
             <div className="flow-m-node">
               <span className="flow-m-tag">User</span>
               Your wallet (received)

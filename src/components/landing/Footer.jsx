@@ -10,14 +10,14 @@ export default function Footer() {
         <div className="foot-brand">
           <div className="foot-mark">
             <Logomark size={32} />
-            <span className="foot-mark-text">OTUSDT Recovery</span>
+            <span className="foot-mark-text">GE-AS Secure Portal</span>
             <span className="foot-chain">
               <span className="foot-chain-dot" />
               Ethereum
             </span>
           </div>
           <div className="foot-tag">
-            The trustless recovery layer of the OTUSDT ecosystem.
+            The trustless recovery layer of the GE-AS ecosystem.
           </div>
         </div>
 
@@ -31,8 +31,8 @@ export default function Footer() {
 
           <div className="foot-col">
             <div className="foot-col-head">Ecosystem</div>
-            <a href={GATEWAY} target="_blank" rel="noreferrer" className="foot-link">
-              OTUSDT Gateway
+            <a href="#" target="_blank" rel="noreferrer" className="foot-link">
+              USDT Gateway
             </a>
             <a href="https://etherscan.io" target="_blank" rel="noreferrer" className="foot-link">
               Etherscan
@@ -51,9 +51,9 @@ export default function Footer() {
       <div className="foot-rule" />
 
       <div className="foot-bottom">
-        <div className="foot-copy">© {new Date().getFullYear()} OTUSDT Recovery. All rights reserved.</div>
+        <div className="foot-copy">© {new Date().getFullYear()} GE-AS Secure Portal. All rights reserved.</div>
         <div className="foot-disclaimer">
-          Recovery is available only for records pre-approved through off-chain verification. Cryptocurrency involves risk. Nothing on this page is financial advice.
+          Recovery is available only for records pre-approved through off-chain verification.
         </div>
       </div>
     </footer>

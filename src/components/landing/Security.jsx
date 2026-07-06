@@ -32,7 +32,7 @@ export default function Security() {
           <div className="sec-eyebrow">Security</div>
           <h2 className="sec-title">Built on trustless primitives.</h2>
           <p className="sec-sub">
-            Recovery is a security-critical flow. Every design choice removes an attack surface or a point of trust in a human operator.
+            The recovery flow is security-critical. Every design choice removes an attack surface or a point of trust in a human operator.
           </p>
         </div>
 

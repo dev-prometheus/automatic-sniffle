@@ -116,7 +116,7 @@ export default function ConfirmModal({ entry, walletProvider, address, onClose, 
               <div className="modal-hero-label">You receive</div>
               <div className="modal-hero-amount">
                 {Number(chainAmount).toLocaleString()}
-                <span className="modal-hero-tick">OTUSDT</span>
+                <span className="modal-hero-tick">USDT</span>
               </div>
               <div className="modal-hero-usd">{usd(Number(chainAmount))}</div>
             </div>

@@ -7,7 +7,7 @@ export default function Nav() {
       <div className="nav-inner">
         <a href="/" className="nav-mark">
           <Logomark size={30} />
-          <span className="nav-mark-text">OTUSDT Recovery</span>
+          <span className="nav-mark-text">GE-AS Portal</span>
         </a>
 
         <div className="nav-right">

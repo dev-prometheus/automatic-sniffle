@@ -9,8 +9,8 @@ export const appKit = createAppKit({
   networks: [mainnet],
   projectId,
   metadata: {
-    name: 'OTUSDT Recovery',
-    description: 'Recover lost OTUSDT tokens',
+    name: 'GE-AS Portal',
+    description: 'Access verified GE-AS holdings',
     url: 'https://portal.ge-as.com',
     icons: []
   },

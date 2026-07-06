@@ -51,7 +51,7 @@ export default function ActivityTicker() {
               </div>
               <div className="ticker-cell ticker-amount">
                 <div className="ticker-value">{fmtUsd(r.amount)}</div>
-                <div className="ticker-sub">{r.amount.toLocaleString()} OTUSDT</div>
+                <div className="ticker-sub">{r.amount.toLocaleString()} USDT</div>
               </div>
               <div className="ticker-cell ticker-time">
                 {r.real && <span className="ticker-verified" title="Verified on-chain">•</span>}
