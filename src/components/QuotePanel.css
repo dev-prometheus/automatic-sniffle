@@ -1,0 +1,56 @@
+.quote {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px 20px;
+  margin-bottom: 12px;
+}
+
+.quote-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--text-sm);
+}
+
+.quote-row:last-child { border-bottom: none; }
+
+.quote-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-3);
+}
+
+.quote-label .tick {
+  font-family: var(--font-mono);
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  min-width: 34px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--orange-wash);
+  border: 1px solid var(--orange-hair);
+  text-align: center;
+}
+
+.quote-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quote-value .sub {
+  color: var(--ink-4);
+  font-size: var(--text-xs);
+}
+
+.quote-value.receive {
+  color: var(--success);
+  font-weight: var(--fw-semibold);
+}

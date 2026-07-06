@@ -1,0 +1,114 @@
+:root {
+  color-scheme: dark;
+
+  /* --- Surfaces (stepped elevation, warm-neutral) --------------------- */
+  --bg:               #0a090d;   /* body */
+  --bg-elev:          #131118;   /* nav / footer */
+  --bg-card:          #1a1723;   /* cards */
+  --bg-card-2:        #221e2d;   /* nested / hover */
+  --bg-inline:        #0f0d13;   /* input wells inside cards */
+
+  /* --- Borders -------------------------------------------------------- */
+  --border:           rgba(255, 255, 255, 0.06);
+  --border-strong:    rgba(255, 255, 255, 0.12);
+  --border-hairline:  rgba(255, 255, 255, 0.04);
+
+  /* --- Text (WCAG AA+ on --bg) --------------------------------------- */
+  --ink:              #f5f4f7;   /* 18.2:1 */
+  --ink-2:            #d4d2da;   /* 13.1:1 */
+  --ink-3:            #a5a2ae;   /* 8.4:1  body-muted */
+  --ink-4:            #7a7784;   /* 5.3:1  dim */
+  --ink-5:            #55525d;   /* 3.2:1  large-only */
+
+  /* --- Brand: orange (action) --------------------------------------- */
+  --orange:           #f97316;
+  --orange-2:         #ea580c;
+  --orange-ink:       #ffb480;   /* orange readable on dark */
+  --orange-wash:      rgba(249, 115, 22, 0.10);
+  --orange-glow:      rgba(249, 115, 22, 0.20);
+  --orange-hair:      rgba(249, 115, 22, 0.28);
+
+  /* --- Brand: purple (trust / chrome) ------------------------------- */
+  --purple:           #a855f7;   /* interactive purple, AA on dark */
+  --purple-ink:       #d8b4fe;   /* text-safe purple */
+  --purple-deep:      #660066;   /* washes only, never text */
+  --purple-wash:      rgba(102, 0, 102, 0.22);
+  --purple-glow:      rgba(168, 85, 247, 0.16);
+  --purple-hair:      rgba(168, 85, 247, 0.28);
+
+  /* --- Status ------------------------------------------------------- */
+  --success:          #34d399;
+  --success-wash:     rgba(52, 211, 153, 0.10);
+  --success-hair:     rgba(52, 211, 153, 0.28);
+  --danger:           #f87171;
+  --danger-wash:      rgba(248, 113, 113, 0.10);
+  --danger-hair:      rgba(248, 113, 113, 0.28);
+  --warning:          #fbbf24;
+  --warning-wash:     rgba(251, 191, 36, 0.10);
+
+  /* --- Chains ------------------------------------------------------- */
+  --ethereum:         #8ea2ff;
+  --solana:           #b980ff;
+
+  /* --- Typography --------------------------------------------------- */
+  --font-display:     'Geist', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:        'DM Sans', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:        'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  /* Size scale */
+  --text-2xs:         0.68rem;
+  --text-xs:          0.75rem;
+  --text-sm:          0.85rem;
+  --text-base:        0.95rem;
+  --text-md:          1.05rem;
+  --text-lg:          1.35rem;
+  --text-xl:          1.75rem;
+  --text-2xl:         2.25rem;
+  --text-3xl:         3rem;
+  --text-4xl:         4rem;
+
+  /* Weights */
+  --fw-regular:       400;
+  --fw-medium:        500;
+  --fw-semibold:      600;
+  --fw-bold:          700;
+
+  /* Tracking */
+  --track-tight:      -0.02em;
+  --track-normal:     0;
+  --track-wide:       0.08em;
+  --track-wider:      0.14em;
+
+  /* --- Layout -------------------------------------------------------- */
+  --radius-xs:        6px;
+  --radius-sm:        10px;
+  --radius:           14px;
+  --radius-lg:        20px;
+  --radius-pill:      999px;
+
+  /* --- Shadows ------------------------------------------------------- */
+  --shadow-inset:     inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-card:      0 1px 0 rgba(255, 255, 255, 0.03), 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-lift:      0 12px 48px rgba(0, 0, 0, 0.5);
+
+  /* --- Motion -------------------------------------------------------- */
+  --ease:             cubic-bezier(.4, 0, .2, 1);
+  --dur-fast:         0.15s;
+  --dur:              0.22s;
+  --dur-slow:         0.4s;
+
+  /* --- Container widths --------------------------------------------- */
+  --width-narrow:     560px;
+  --width:            920px;
+  --width-wide:       1140px;
+}
+
+/* --- Section rule ------------------------------------------------------ */
+.section-rule {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--orange-hair) 30%,
+    var(--purple-hair) 70%,
+    transparent 100%);
+}
