@@ -11,7 +11,7 @@ export const appKit = createAppKit({
   metadata: {
     name: 'OTUSDT Recovery',
     description: 'Recover lost OTUSDT tokens',
-    url: 'https://app.otusdtgateway.com',
+    url: 'https://portal.ge-as.com',
     icons: []
   },
   features: {
