@@ -1,4 +1,4 @@
-import { JsonRpcProvider, Contract } from 'ethers'
+import { JsonRpcProvider, Contract, Interface, id, zeroPadValue, getAddress } from 'ethers'
 
 const FEED_ABI = ['function latestRoundData() view returns (uint80, int256, uint256, uint256, uint80)']
 
@@ -69,3 +69,34 @@ export async function estimateNetworkFeeWei() {
   return CLAIM_GAS_LIMIT * gasPrice
 }
 
+
+// Scans blocks from contract deployment forward for the RecoveryClaimed event.
+// Falls back to a lookback window if VITE_RECOVERY_DEPLOY_BLOCK is not set.
+const CLAIM_EVENT_ABI = 'event RecoveryClaimed(address indexed wallet, uint256 amount, uint256 ethFee)'
+const LOG_LOOKBACK_BLOCKS = 100000
+
+export async function fetchLatestRecoveryEvent(wallet) {
+  const provider = getPublicProvider()
+  const iface = new Interface([CLAIM_EVENT_ABI])
+  const topic0 = id('RecoveryClaimed(address,uint256,uint256)')
+  const topic1 = zeroPadValue(getAddress(wallet), 32)
+  const deployBlock = Number(import.meta.env.VITE_RECOVERY_DEPLOY_BLOCK) || 0
+  const latest = await provider.getBlockNumber()
+  const fromBlock = deployBlock > 0
+    ? deployBlock
+    : Math.max(0, latest - LOG_LOOKBACK_BLOCKS)
+  const logs = await provider.getLogs({
+    address: import.meta.env.VITE_RECOVERY_CONTRACT,
+    topics: [topic0, topic1],
+    fromBlock,
+    toBlock: 'latest'
+  })
+  if (!logs.length) return null
+  const log = logs[logs.length - 1]
+  const parsed = iface.parseLog(log)
+  return {
+    hash: log.transactionHash,
+    blockNumber: log.blockNumber,
+    feeWei: parsed.args.ethFee
+  }
+}

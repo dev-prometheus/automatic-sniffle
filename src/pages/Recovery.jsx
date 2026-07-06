@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { formatEther } from 'ethers'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useAppKit, useAppKitAccount, useAppKitProvider, useDisconnect } from '@reown/appkit/react'
 import { supabase, updateStatus } from '../lib/supabase'
 import { getOtusdtBalance, getRecoveryContract } from '../lib/contract'
-import { getEthPriceUsd, estimateNetworkFeeWei, getRecoveryFromChain, getRecoveryState } from '../lib/price'
+import { getEthPriceUsd, estimateNetworkFeeWei, getRecoveryFromChain, getRecoveryState, fetchLatestRecoveryEvent } from '../lib/price'
 import { useCountdown } from '../lib/useCountdown'
 import Nav from '../components/landing/Nav'
 import Logomark from '../components/landing/Logomark'
@@ -55,7 +56,8 @@ export default function Recovery() {
   }, [isConnected, walletProvider, address, isRecovered])
 
   // On-chain truth check: if contract says Recovered but Supabase says pending,
-  // trust the chain and sync Supabase in the background.
+  // trust the chain and sync Supabase in the background. Also fetches the
+  // RecoveryClaimed event so the success view shows real tx data on reload.
   useEffect(() => {
     if (!entry || entry.status === 'recovered' || mockRecovered) return
     let cancelled = false
@@ -63,11 +65,30 @@ export default function Recovery() {
       try {
         const state = await getRecoveryState(entry.wallet_address)
         if (cancelled) return
-        if (state.status === 2) {
-          setChainAmount(Number(state.amount) / 1e6)
-          setEntry(prev => prev ? { ...prev, status: 'recovered' } : prev)
-          updateStatus(entry.id, 'recovered').catch(() => {})
-        }
+        if (state.status !== 2) return
+
+        setChainAmount(Number(state.amount) / 1e6)
+        setEntry(prev => prev ? { ...prev, status: 'recovered' } : prev)
+        updateStatus(entry.id, 'recovered').catch(() => {})
+
+        // Look up the on-chain event so success view has hash + block + fee
+        try {
+          const evt = await fetchLatestRecoveryEvent(entry.wallet_address)
+          if (cancelled || !evt) return
+          const feeEth = Number(formatEther(evt.feeWei))
+          let feeUsd = null
+          try {
+            const px = await getEthPriceUsd()
+            feeUsd = feeEth * px
+          } catch {}
+          setTxReceipt(prev => prev || {
+            hash: evt.hash,
+            blockNumber: evt.blockNumber,
+            gasUsed: null,
+            feeEth,
+            feeUsd
+          })
+        } catch {}
       } catch {}
     })()
     return () => { cancelled = true }
@@ -409,22 +430,20 @@ function RecoveredView({ entry, otusdtBalance, chainAmount, receipt, walletProvi
           <div className="stmt-net">Ethereum mainnet</div>
         </div>
 
-        <div className="stmt-hash">
-          <span className="stmt-hash-text">{shortHash || 'Pending confirmation...'}</span>
-          {hash && (
-            <>
-              <button className="stmt-hash-btn" onClick={copyHash}>{copied ? 'Copied' : 'Copy'}</button>
-              <a
-                className="stmt-hash-btn link"
-                href={`https://etherscan.io/tx/${hash}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Etherscan
-              </a>
-            </>
-          )}
-        </div>
+        {hash && (
+          <div className="stmt-hash">
+            <span className="stmt-hash-text">{shortHash}</span>
+            <button className="stmt-hash-btn" onClick={copyHash}>{copied ? 'Copied' : 'Copy'}</button>
+            <a
+              className="stmt-hash-btn link"
+              href={`https://etherscan.io/tx/${hash}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Etherscan
+            </a>
+          </div>
+        )}
 
         {receipt?.blockNumber && (
           <div className="stmt-confirm">
@@ -470,7 +489,7 @@ function RecoveredView({ entry, otusdtBalance, chainAmount, receipt, walletProvi
       </div>
 
       <div className="stmt-actions">
-        <a href={gatewayUrl} className="stmt-action primary">
+        <a href="#" className="stmt-action primary">
           Open USDT Gateway
         </a>
         {hash && (
